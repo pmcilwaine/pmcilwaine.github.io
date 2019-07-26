@@ -1,0 +1,21 @@
+@import "base/variables/size";
+@import "base/variables/typography";
+
+.post {
+    .date {
+        padding-bottom: 0;
+    }
+
+    h2 {
+        font-size: $font-size--normal * 1.5;
+        font-weight: bold;
+    }
+
+    margin-bottom: $size-base * 4;
+}
+
+.footnotes {
+    li {
+        font-size: 1.3rem;
+    }
+}

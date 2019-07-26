@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <title>Paul Mcilwaine - {{ page.title }}</title>
+        <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                {% for navigation in site.data.navigation %}
+                    <li><a href="{{ navigation.link }}">{{ navigation.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+
+        <div class="container">
+            <div class="side_bar">
+                <p>Hi my name is Paul Mcilwaine. I am currently working as a Senior Software Engineer at Coolblue.</p>
+                <p>I write about things I learn or of interest to me within Software Development.</p>
+
+                <ul class="list--inline">
+                    {% for profile_link in site.data.profile_links %}
+                       <li>
+                           <a class="icon icon-{{ profile_link.icon }}" href="{{ profile_link.url }}" target="_blank" title="{{ profile_link.title }}">
+                               {{ profile_link.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="content">
+                {{ content }}
+    
+                {% if page.comments %}
+                    <div class="js-discuss" data-disqus-page-url="{{ page.url | prepend: 'https://pmcilwaine.github.io' }}" data-disqus-page-title="{{ page.title }}" data-disqus-page-identifier="{{ page.url }}" id="disqus_thread"></div>
+                {% endif %}
+            </div>
+        </div>
+
+        <script src="/assets/main.js"></script>
+    </body>
+</html>

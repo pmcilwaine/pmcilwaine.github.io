@@ -1,0 +1,36 @@
+nav {
+    padding: .5rem;
+    position: fixed;
+    top: 0;
+    background: rgba(255, 255, 255, .5);
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+
+    ul {
+        margin: 0;
+    }
+
+    li {
+        display: inline-block;
+        padding: 0 .5rem;
+    }
+
+    a {
+        color: #303ab6;
+        text-decoration: none;
+        font-size: 2rem;
+    }
+}
+
+@media screen and (min-width: 667px) {
+    nav {
+        right: 0;
+        width: 33rem;
+    } 
+}
+
+@media screen and (min-width: 1023px) {
+    nav {
+        width: 39rem;
+    }
+}

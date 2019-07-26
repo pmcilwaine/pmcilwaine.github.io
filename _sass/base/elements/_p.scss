@@ -1,0 +1,10 @@
+@import "../variables/size";
+
+p:not(:empty) {
+    padding-bottom: $size-base * 4;
+  
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+  

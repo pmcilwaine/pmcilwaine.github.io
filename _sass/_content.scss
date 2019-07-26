@@ -1,0 +1,45 @@
+.container {
+    margin-top: 4.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.side_bar {
+    order: 2;
+}
+
+.content {
+    order: 1;
+}
+
+@media screen and (min-width: 667px) {
+    .container {
+        margin: 5rem auto 0;
+        width: 50rem;
+    }
+
+    .side_bar {
+        order: 2;
+        width: 15rem;
+        font-size: 1.3rem;
+    }
+
+    .content {
+        order: 1;
+        width: 35rem;
+    }
+}
+
+@media screen and (min-width: 1023px) {
+    .container {
+        width: 90rem;
+    }
+
+    .content {
+        width: 70rem;
+    }
+
+    .side_bar {
+        width: 20rem;
+    }
+}
