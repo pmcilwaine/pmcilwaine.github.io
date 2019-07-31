@@ -15,7 +15,7 @@
 @media screen and (min-width: 667px) {
     .container {
         margin: 5rem auto 0;
-        width: 50rem;
+        width: 49rem;
     }
 
     .side_bar {
@@ -26,7 +26,8 @@
 
     .content {
         order: 1;
-        width: 35rem;
+        width: 34rem;
+        padding-right: 1rem;
     }
 }
 
@@ -36,7 +37,8 @@
     }
 
     .content {
-        width: 70rem;
+        width: 68rem;
+        padding-right: 2rem;
     }
 
     .side_bar {

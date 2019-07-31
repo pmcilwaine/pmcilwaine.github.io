@@ -34,11 +34,27 @@
                 {{ content }}
     
                 {% if page.comments %}
-                    <div class="js-discuss" data-disqus-page-url="{{ page.url | prepend: 'https://pmcilwaine.github.io' }}" data-disqus-page-title="{{ page.title }}" data-disqus-page-identifier="{{ page.url }}" id="disqus_thread"></div>
+                    <div 
+                        class="js-discuss" 
+                        data-disqus-page-url="{% if page.comment_url %}{{ page.comment_url }}{% else %}{{ page.url | prepend: 'https://pmcilwaine.github.io' }}{% endif %}"
+                        data-disqus-page-title="{{ page.title }}" 
+                        data-disqus-page-identifier="{% if page.comment_identifier %}{{ page.comment_identifier }}{% else %}{{ page.url }}{% endif %}" 
+                        id="disqus_thread"
+                    >
+                    </div>
                 {% endif %}
             </div>
         </div>
 
         <script src="/assets/main.js"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+            
+            ga('create', '{{ site.google.analytics }}', 'auto');
+            ga('send', 'pageview');
+        </script>
     </body>
 </html>
