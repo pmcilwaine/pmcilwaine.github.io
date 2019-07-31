@@ -2,7 +2,6 @@
     margin-top: 4.5rem;
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 2.4rem;
 }
 
 .side_bar {
@@ -15,7 +14,7 @@
 
 @media screen and (min-width: 667px) {
     .container {
-        margin: 5rem auto 0;
+        margin: 5rem auto 2.4rem auto;
         width: 49rem;
     }
 
