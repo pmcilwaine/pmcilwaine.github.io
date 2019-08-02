@@ -2,6 +2,7 @@
 layout: post
 title: Understanding REST
 tags: [rest, http, architecture]
+comments: true
 ---
 
 As a developer you will probably have heard of the term REST, and after thinking about having some understanding of what REST is, you’ve created your own API labelled it RESTful and had clients developed to use it. But is what you really developed actually REST under its definition or something else?
