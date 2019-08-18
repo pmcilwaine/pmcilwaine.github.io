@@ -1,3 +1,9 @@
+---
+layout: post
+title: REST and Versioning
+tags: [rest, http, architecture]
+comments: true
+---
 There are many ways in which we attempt to version our REST APIs. In my previous article I covered this but lets go into more depth on the issue.
 
 ## The URI Path or URI Query String
@@ -35,4 +41,17 @@ Lets go into more depth on point 4, this is where you are really failing REST. O
 The argument against what I have stated is that you could support both versions. But you are still coupling client and server this way. Now the server cannot remove the deprecated version until all clients use the new version, and the client cannot use the resource in the new intended way until it upgrades to the new version.
 
 ## Custom Version Header
+
+This will typically look like this
+
+> X-Version: 1
+
+Of the examples shown so far, I consider this to be the worst of them, so lets look at why. 
+
+Firstly what is being versioned here? It is unclear, is it the resource, the representation or the resource and representation. You also have the issue like before regarding it not being very visible, so doing this purely in the browser is not an option without extensions. You also now have an additional header to send, REST is by design not very good at this and its why we have the cache constraint. 
+
+Secondly you actually inherit all the issues from the previous ways of doing versioning.
+
+  
+
 
