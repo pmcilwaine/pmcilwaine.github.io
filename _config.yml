@@ -1,10 +1,52 @@
+# markdown: kramdown
+# paginate: 5
+# paginate_path: "/blog/page:num/"
+
+# plugins:
+#   - jekyll-paginate
+#   - jekyll-gist
+
+# google:
+#   analytics: UA-144481572-1
+
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
+
+paginate: 10 # pagination based on number of posts
+paginate_path: "page:num"
+exclude: ["README.md"] # files to exclude
+highlighter: rouge
 markdown: kramdown
-paginate: 5
-paginate_path: "/blog/page:num/"
+disqus: pmcilwaine
+google_analytics: UA-144481572-1
+title: Paul Mcilwaine
+
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      title: Paul Mcilwaine
+
+description: Paul Mcilwaine Blog
+author:
+  name: Paul Mcilwaine
+  email: paul.mcilwaine@gmail.com
+  github: pmcilwaine
+  twitter: 
+  pinterest: 
+  linkedin: paulmcilwaine
+  bio: Hi my name is Paul Mcilwaine. I am currently working as a Senior Software Engineer at Coolblue. I write about things I learn or of what interests to me within Software Development.
+  email_md5: aeef34b3e75f1a1e2d012b6ba02a1638
+
+rss_path: feed.xml
+categories_path: categories.html
+tags_path: tags.html
+
+# set it as url of an image
+# sidebar_background_image: https://www.dropbox.com/s/g9h23zrycedxtk5/sky.png?raw=1
+
+BASE_PATH:
 
 plugins:
   - jekyll-paginate
   - jekyll-gist
-
-google:
-  analytics: UA-144481572-1
