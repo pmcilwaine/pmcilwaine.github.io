@@ -5,26 +5,28 @@ tags: [rest, http, architecture]
 comments: true
 ---
 
-As a developer you will probably have heard of the term REST, and after thinking about having some understanding of what REST is, you’ve created your own API labelled it RESTful and had clients developed to use it. But is what you really developed actually REST under its definition or something else?
+As a developer you may have heard of the term REST, you may have worked with or created an API that was called RESTful. However was it actually REST or was it missing some requirements? Below I will walk through what REST is to the best of my knowledge.
 
-## What is REST
+## What is REST?
 REST stands for Representational State Transfer, and was described in Roy T. Fielding’s dissertation back in 2000[^1]. 
 
 > [REST is an] architectural style for distributed hypermedia systems, describing the software engineering principles guiding REST and the interaction constraints chosen to retain those principles, while contrasting them to the constraints of other architectural styles.
 
-This is a brief description of what REST is, but we should first discuss what hypermedia systems are as they are fundamental to understanding REST.
+This is a brief description of what REST is and also contains a lot of information, so I first feel I need to explain what hypermedia is.
 
 ### Hypermedia
-Understanding hypermedia requires further definition of that of HyperText
+The term hypermedia is actually a superset of the term Hypertext, so before I give a definition of hypermedia, below is a definition of hypertext. The distinction between the two is small. 
 
 > Hypertext is basically the same as regular text - it can be stored, read, searched, or edited - with an important exception: hypertext is text with pointers to other text. The browsers let you deal with the pointers in a transparent way -- select the pointer, and you are presented with the text that is pointed to[^2]
 
-Examples of hypertext are Microsoft Help, and Hyperstudio/Hypercard. Now that we understand that hypertext is text that contains pointers to other text (to be brief). Hypermedia is a superset of hypertext. This means that it has text, and pointers to other text but can also contain images, video, sound, etc. An example of hypermedia is the World Wide Web (WWW). 
+Examples of hypertext are Microsoft Help, and Hyperstudio/Hypercard.
 
-Now that we know what hypermedia is, how is it related to REST? As stated in the dissertation[^1] describing REST, hypermedia is a constraint within the REST architecture. 
+Like I said Hypermedia is superset to hypertext, so what are the additions to hypermedia that are not in the underlying term? Well, as the name suggests its media. Media can be in form of images, video, sound etc. So hypermedia although very important to understand, is quite a simple concept.
+
+Now that we know what hypermedia is, we should go over the constraints as stated previously REST is an architectural style for distributed hypermedia systems.
 
 ## Constraints
-To ensure our architecture is well defined and has boundaries, we want to set some constraints. An interesting thing to know is that most cases you want to design from a blank canvas (no pre-existing system), however in respect to REST it started from a pre-existing system (the web). 
+To ensure our architecture is well defined and has boundaries, we want to set some constraints. What differs REST to other architectural styles is that they usually are created first, however REST started against a pre-existing system.
 
 There are six constraints within REST as listed below.
 
@@ -35,17 +37,17 @@ There are six constraints within REST as listed below.
 5. Layered System
 6. Code-on-Demand (optional)
 
-Each constraint listed adds something to the constraint above it as a whole this gives us the architectural style of REST.
+Each constraint listed adds to the constraint above it as a whole this gives us as a whole, the architectural style of REST.
 
 ### Client-Server
 This is the first constraint to the architectural style. The main principle behind client-server is separation of concerns. 
 
-The purpose of separation of concerns allows us to separate the user interface which improves portability and concerns of the server which improves the scalability of the service. 
+The purpose of separation of concerns requires us to separate the user interface which improves portability and concerns of the server which improves the scalability of the service. 
 
-As we have the principle of separation of concerns, we get evolvability. That means that client and server can evolve independently.[^1][^3]
+The principle of separation of concerns gives us evolvability. For a client server architecture to really work well and in the case of REST we want both the client and server to evolve independently from each other[^1][^3]. This evolvability is important and I'll discuss it again in how we can attempt to ensure this.
 
 ### Stateless
-This means that the client must send all the necessary information to the service to understand the request. This requires the client to store some state and it should be sent with the request.
+This means that the client must send all the necessary information to the service to understand the request. This requires the client to store some state and it should be sent with the request to ensure the request is fulfilled correctly.
 
 Advantages of this constraint are visibility, reliability, and scalability. It has a drawback as each request needs to contain all the information in the request thus reduces network performance, it also reduces server control of consistent application behaviour as part of the application state is now stored on the client. [^1]
 
@@ -64,114 +66,66 @@ This constraint is fundamental within REST, and is probably where you have gone 
 
 We apply the software engineering principle of generality to achieve this. The trade-off of this is that we degrade efficiency as we are building to a standard rather than something specific to the applications needs.
 
-Let’s describe what each of these interface constraints mean:
+So let me explain more about these interface constraints.
 
 #### Resources & Resource Identifiers
-Anything that can be named, can be a resource. A resource is a contextual mapping to a set of entities, it’s not the mapping of an entity at a particular point in time. This means that the entities can evolve over time but the resource does not.
+Anything that can be named, can be a resource. A resource is a contextual mapping to a set of entities, it’s not the mapping of an entity at a particular point in time. This means that the entities can evolve over time but the resource does not. An example of this is todays weather which might have a URI like below.
+
+> /weather/today
+
+This URI will always be the same, however as we know today will change. If the todays date is January 1st then tomorrow the URI will point to data for January 2nd. As stated the URI stays the same, but the data is different.
 
 #### Resource Representations
 A representation consists of data, metadata describing the data, and, on occasion, metadata to describe the metadata. 
 
-* Meta data is in key, value pairs. In the response message it may contain, representation metadata and resource metadata.
+* Meta data is in key value pairs. In the response message it may contain, representation metadata and resource metadata.
 * Control data could be used if we want to get only a newer version than a one stored in cache.
-* The data format of a representation is the media type. It must be sent so the client can understand the representation format.
+* The data format of a representation is the media type. It must be sent, so the client can understand the representation format.
 
 #### Self-descriptive messages
-In short this means it means the data format representation MUST always come with the media type. The media type must be well specified and that client and server both agree about the media type refers to.
+In short this means it means the data format representation MUST always come with the media type. The media type must be well specified and that client and server both agree about what the media type refers to.
 
-This allows you to create your own media type, with specification and as long as both server and client agree then this constraint satisfied.
+This allows you to create your own media type, with specification and as long as both server and client agree then this constraint is satisfied.
 
 #### Hypermedia as the engine of application state 
-This is generally where most REST APIs fail. The client does not need any prior knowledge of the service to use it other than an entry point, and understanding of the media type. All interactions thereafter are driven by hypermedia.
+This is generally where most REST APIs fail. The client does not need any prior knowledge of the service to use it other than an entry point, and understanding of the media type. All interactions thereafter are driven by hypermedia. As prevously stated in the explanation of hypermedia, this demonstrates the importance of hypermedia as it is to REST. Without being able to link to other data, you wouldn't get much use out of the API, and your client would need prior knowledge of the system to retrieve more information.
 
-An example `application/json` is common media type used for services that claim to be following REST, however `application/json` does not have a concept of links so therefore you aren’t RESTful. You can create your own media type which is an extension of REST to incorporate this.
+An example: `application/json` is common media type used for services that claim to be following REST, however `application/json` does not have a concept of links so therefore you aren’t RESTful with this media type. To solve this you can still use JSON as your syntax, but a schema must be designed and agreed upon (see Self-descriptive messages), which includes how the client has knowledge of what a link is (or a text pointer) as described in hypermedia.
 
-#### Layered System
+### Layered System
 This allows an architectural style to be composed of hierarchical layers by constraining component behaviour in that a layer cannot see beyond the immediate layer. This allows for easy encapsulation of legacy systems which can protect new clients from this legacy.
 
 What this means in context of REST is that a client does not know that an intermediary server served the request, acted in the middle of the request such as Authentication/load balancer or if the end server served the request.
 
-#### Code-on-Demand
-The final constraint of REST is code-on-demand. This constraint is optional which might seem strange for constraints on an architecture. The server can send code to the client in the form of scripts, the client then can optionally handle this. 
+This constraint can tie into the Cache constraint as intermediaries can cache content and serve it directly rather than the server, this is typically the responsibility of Proxies and Content delivery networks.
+
+### Code-on-Demand
+The final constraint of REST is code-on-demand. This constraint is optional which might seem strange for constraints on architecture. The server can send code to the client in the form of scripts, the client then can optionally handle this. 
 
 This improves the system extensibility without the need for deployment. The reason for this being optional is that it reduces visibility in the case when clients do not trust the server, and that a script could be binary[^1].
 
-## What is the purpose of REST?
-The motivation as described by Fielding in his dissertation
+I hope this gives you brief understanding of the constraints that make REST. Unfortuantely without examples it can seem a bit abstract, this is the point to an architectural style, and perhaps a failing in given a concrete explanation of REST within a dissertation. Let's now discuss why did REST architectural style came about. Hopefully this gives us more clarify on what the constraints are about.
+
+## What is the motiviation of REST?
+The motivation as described by Fielding in his dissertation.
 
 > motivation for developing REST was to create an architectural model for how the Web should work, such that it could serve as the guiding framework for the Web protocol standards. REST has been applied to describe the desired Web architecture, help identify existing problems, compare alternative solutions, and ensure that protocol extensions would not violate the core constraints that make the Web successful[^1]
 
-This allowed the Internet Engineering Task Force (IETF) and World Wide Web Consortium (W3C) to define architectural standards for the web: HTTP, URI and HTML as long as it followed the constraints of REST.
+This gives us the motivation of having REST at least in the context of how the Web is, however this was not always the case. As I mentioned when discussing constraints that REST came about after the Web actually existed. This meant that REST has attempted to fit existing components into an architectural style. Although it has attempted to fit all exisitng components within REST, not all components that existed fit REST. An example of this is HTTP Cookies.
 
-So how are the constraints implemented for the web. This is a rough walk through on a request with constraints tagged.
+So now we know what that REST is an architectural style and its primary purpose was for ensuring the web technologies (HTTP, URI and HTML), didn't break the architecture. Let's discuss why would I want to use REST.
 
-* A user using a web browser (Client/Server) has some URI (Uniform Identifier) to initiate a browsing session
-* The browser translates this request into HTTP to the server
-* The request goes through a proxy cache (Cache/Layered) and Load Balancer (Layered)
-* The Web Server receives the request (Client/Server) and routes it to the appropriate application handler
-* The application responds with an HTML representation of the resource (Uniform Identifier)
-* The browser eventually receives the HTML representation and renders it to the browser, it styles the page using CSS and runs Javascript (Code-on-demand)
-* A user submits a form (a login form) back to the server
-* The server responds with HTML representation of the resource and a HTTP Session Cookie (Stateless)*.
-* The browser receives the session cookie and stores it.
+## Why would I want a REST API?
+There are quite a few benefits to REST but the main one comes from software engineering principle of generality. This principle forces our API design to be generalised. So rather than create our API to a specific purpose we need to make it work with as many use cases as possible. Doing this correctly and creating a media type, you can then create a single client that understands this media type against any service that responds with that media type. 
 
-<sup>* Within this process the cookies could be considered to actually break the principles of REST[^1]. It is only mentioned here for demonstration purposes.</sup>
+In practice this is not so easy to accomplish. Most so called REST APIs I worked with/on have failed this miserably. I have created specific clients for a service, that means if I had to work against 2 services, that were 2 clients I needed to create. This does not include the fact that each programming language is essentially a client so its not even a 1:1 mapping in some cases.
 
-## Versioning
-Many developers believe that they should version their API. There are various ways in which it has been proposed, below are 4 common examples:
-
-* The URI e.g. /api/v1/some-resource
-* Within the query string ?v=1
-* The media type Content-Type: application/vnd.myname.v1+json
-* Custom header: X-Version: 1
-
-However following our growing understanding of what REST is, which is to be a set of constraints for the Web. The components that make up the web consist of
-
-* HTTP
-* URI
-* HTML
-
-Of the 3 components only 2 have versions and none of them are done via a URL or a media type. In fact from Roy Fielding:
-
-> the reason to make a real REST API is to get evolvability … a "v1" is a middle finger to your API customers, indicating RPC/HTTP (not REST) [^5]
-
-Having your client aware of the version breaks key principles of REST. We do not want the client aware of versioning sent from the server, this makes the separation of concerns a bit blurry. Also what does a version mean exactly? If it’s in the URI, path or query string then it means the resource is versioned. But this isn’t what you are really intending, as normally this is a breaking change in the representation not the resource. 
-
-Let’s see how HTML and HTTP handle versioning.
-
-### HTML
-HTML standard specifies to the browser that any element that it does not recognise that it would just have the content[^6]. In HTML5 this changed so that the element would be parsed so that styling could be achieved[^7]. 
-
-Irrespective of what your browser supports unknown elements will be handled in some way. So versioning is not really important hence why in HTML5 it is completely removed.
-
-Unlike in proposed versioning methods for APIs, the client and server does not specify the HTML version it just requests text/html and returns a text/html document (HTML). Versioning is important in terms of setting a standard to follow for the client. If it’s not using the latest version it should at least know how to handle unknowns.
-
-### HTTP
-The client sends a HTTP/1.1 version but if the client supports HTTP/2 it will send an Upgrade header. If the server supports it the protocol will be switched to HTTP/2. From the server point of view it must always send the latest minor version e.g. If HTTP/1.0 is requested and it has support for HTTP/1.1 the response should be HTTP/1.1.
-
-> The "Upgrade" header field is intended to provide a simple mechanism for transitioning from HTTP/1.1 to some other protocol on the same connection.  A client MAY send a list of protocols in the Upgrade header field of a request to invite the server to switch to one or more of those protocols, in order of descending preference, before sending the final response.  A server MAY ignore a received Upgrade header field if it wishes to continue using the current protocol on that connection.  Upgrade cannot be used to insist on a protocol change.[^8]
-
-What we learn from the implementation of HTML and HTTP is that they are backwards and forwards compatible.
-
-> Backward compatibility - Newer code can read data that was written by older code.
-> Forward compatibility - Older code can read data that was written by newer code.[^4]
-
-What we can learn from how the Web components HTTP and HTML work is that we should write a standard, this standard can change and this is what we version. Within the standard we need to ensure its explicitly stated how to handle unknown properties within the media type. This is to ensure backwards and forwards compatibility. 
-
-## Why would I want a REST API
-
-REST is simple but due to its simplicity, it's very difficult to implement. You need to assume clients know nothing other than an entry point, from here it requires hypermedia to allow transitions of state i.e. go from one page to another this allows the client to explore. There is no versioning i.e. we do not state we want to use URI version X, or HTML version Y. The architecture is designed so that implementation is able to handle the backward and forward compatibility and versioning is only there as how to implement the standard at a point in time as agreed. 
-
-The benefits of REST is that the client cannot distinguish from an online banking website to a search engine, all whilst using the same client, and agreed upon media type (HTML). 
-
-If you want to develop and API with a similar characteristic building a REST API might be the way to go. Such a reason would be to develop your own internal media type within your organisation. Once you have done that you could be a single client (or many) for the languages that wish to use this media type. This way you are not creating a client for each service thus potentially reducing specific code libraries. The trade-off is of course it will take time for the standard to be done and agreed upon.
+The alternative and more gradual way to create a REST API is to follow the Richardson Maturity Model. 
 
 ### Richardson Maturity Model (RMM)  
 Although building a REST API is difficult there is at least a 3 step approach originally developed by Leonard Richardson called the Richardson Maturity Model and outlined by Martin Fowler [https://martinfowler.com/articles/richardsonMaturityModel.html](https://martinfowler.com/articles/richardsonMaturityModel.html). It is important to know although there are 3 steps you do not have what would be considered REST until you reach step 3 which a prerequisite for REST.
 
-I personally do not think the majority of people who claim to have a REST API would want to follow REST. However I do think that the majority of constraints and principles it gives you should be adhered to even if you do what is essentially RPC over HTTP.
-
-
+Well that was quite a lot of information. In a future article Id like to describe versioning and how it works with REST.
 
 ## Footnotes
 [^1]: Fielding, R. (2000). Architectural Styles and the Design of Network-based Software Architectures. Retrieved from [https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm](https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm)

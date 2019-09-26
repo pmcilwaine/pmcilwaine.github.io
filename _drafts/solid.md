@@ -1,7 +1,7 @@
 ---
 layout: post
 title: SOLID Principles
-tags: [solid, programming]
+tags: [solid, programming, oop, architecture]
 comments: true
 ---
 
