@@ -1,52 +1,23 @@
-# markdown: kramdown
-# paginate: 5
-# paginate_path: "/blog/page:num/"
+# Setup
+title:               Paul Mcilwaine
+tagline:             ''
+description:         ''
+url:                 http://pmcilwaine.github.io/
+baseurl:             ''
+paginate:            5
+permalink:           pretty
 
-# plugins:
-#   - jekyll-paginate
-#   - jekyll-gist
-
-# google:
-#   analytics: UA-144481572-1
-
-# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
-
-paginate: 10 # pagination based on number of posts
-paginate_path: "page:num"
-exclude: ["README.md"] # files to exclude
-highlighter: rouge
-markdown: kramdown
-disqus: pmcilwaine
-google_analytics: UA-144481572-1
-title: Paul Mcilwaine
-
-defaults:
-  -
-    scope:
-      path: "" # empty string for all files
-    values:
-      title: Paul Mcilwaine
-
-description: Paul Mcilwaine Blog
+# About/contact
 author:
-  name: Paul Mcilwaine
-  email: paul.mcilwaine@gmail.com
-  github: pmcilwaine
-  twitter: 
-  pinterest: 
-  linkedin: paulmcilwaine
-  bio: Hi I am Paul Mcilwaine. I write about things I learn, or interest me mostly within the Software industry.
-  email_md5: aeef34b3e75f1a1e2d012b6ba02a1638
+  name:              Paul Mcilwaine
+  url:               https://www.linkedin.com/in/paulmcilwaine/
+  email:             paul.mcilwaine@gmail.com
 
-rss_path: feed.xml
-categories_path: categories.html
-tags_path: tags.html
-
-# set it as url of an image
-# sidebar_background_image: https://www.dropbox.com/s/g9h23zrycedxtk5/sky.png?raw=1
-
-BASE_PATH:
-
+# Gems
 plugins:
   - jekyll-paginate
   - jekyll-gist
+
+# Custom vars
+version:             1.1.0
+google_analytics_id: UA-144481572-1
